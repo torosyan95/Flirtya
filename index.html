@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flirtya</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <div class="screen active" id="welcomeScreen">
+      <h1>Добро пожаловать в Flirtya</h1>
+      <p>Нажмите кнопку ниже, чтобы начать</p>
+      <button onclick="goToScreen('registerScreen')">Начать</button>
+    </div>
+
+    <div class="screen" id="registerScreen">
+      <h2>Регистрация</h2>
+      <form onsubmit="event.preventDefault(); register();">
+        <input type="text" id="name" placeholder="Имя" required />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="date" id="dob" required />
+        <input type="file" id="photo" accept="image/*" required />
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+
+    <div class="screen" id="profileScreen">
+      <h2>Профиль</h2>
+      <p id="profileName"></p>
+      <p id="profileEmail"></p>
+      <p id="profileAge"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
