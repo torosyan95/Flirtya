@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom right, #d16ba5, #86a8e7, #5ffbf1);
+    color: #fff;
+    text-align: center;
+}
+
+.welcome-screen, .registration-screen, .swipe-screen {
+    padding-top: 60px;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+input, select {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    border-radius: 6px;
+    border: none;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background: #ffffff;
+    color: #d16ba5;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ffd6ec;
+}
+
+.card {
+    background: #fff;
+    color: #000;
+    width: 80%;
+    margin: 0 auto 20px;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.buttons button {
+    margin: 0 10px;
+}
