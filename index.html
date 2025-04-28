@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flirtya - Find Your Match</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-    <script src="firebase.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flirtya</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="firebase.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
+  <div id="app">
     <div id="welcome-screen">
-        <img src="logo.PNG" alt="Flirtya Logo" class="logo">
-        <h1>Welcome to Flirtya</h1>
-        <button id="start-button">Get Started</button>
+      <img src="logo.PNG" alt="Flirtya Logo" class="logo">
+      <h1>Welcome to Flirtya</h1>
+      <button id="start-button">Get Started</button>
     </div>
 
     <div id="registration-screen" class="hidden">
-        <h2>Create Account</h2>
-        <input type="text" id="reg-name" placeholder="Your Name">
-        <input type="email" id="reg-email" placeholder="Email">
-        <input type="password" id="reg-password" placeholder="Password">
-        <input type="date" id="reg-dob" placeholder="Date of Birth">
-        <button id="register-button">Register</button>
-        <p class="link" id="to-login">Already have an account? Login</p>
+      <h2>Create Account</h2>
+      <input type="text" id="reg-name" placeholder="Your Name">
+      <input type="email" id="reg-email" placeholder="Email">
+      <input type="password" id="reg-password" placeholder="Password">
+      <input type="date" id="reg-dob" placeholder="Date of Birth">
+      <select id="reg-country"></select>
+      <select id="reg-city"></select>
+      <button id="register-button">Register</button>
+      <p class="link" id="to-login">Already have an account? Login</p>
     </div>
 
     <div id="login-screen" class="hidden">
-        <h2>Login</h2>
-        <input type="email" id="login-email" placeholder="Email">
-        <input type="password" id="login-password" placeholder="Password">
-        <button id="login-button">Login</button>
-        <p class="link" id="to-register">Don't have an account? Register</p>
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email or Phone">
+      <input type="password" id="login-password" placeholder="Password">
+      <button id="login-button">Login</button>
+      <p class="link" id="forgot-password">Forgot Password?</p>
+      <p class="link" id="to-register">Don't have an account? Register</p>
     </div>
 
     <div id="main-menu" class="hidden">
-        <div id="swipe-screen">
-            <h2>Find Matches</h2>
-            <div id="card-area">
-                <!-- Cards will be injected here -->
-            </div>
-            <div class="swipe-buttons">
-                <button id="dislike-button">Dislike</button>
-                <button id="superlike-button">Super Like</button>
-                <button id="like-button">Like</button>
-            </div>
+      <div id="swipe-screen">
+        <h2>Discover</h2>
+        <div id="card-area"></div>
+        <div class="swipe-buttons">
+          <button id="dislike-button">❌</button>
+          <button id="superlike-button">⚡</button>
+          <button id="like-button">❤️</button>
         </div>
-        <div id="profile-screen" class="hidden">
-            <h2>Your Profile</h2>
-            <div id="profile-info"></div>
-            <button id="logout-button">Logout</button>
-        </div>
-        <div class="bottom-menu">
-            <button id="menu-swipes">Swipes</button>
-            <button id="menu-chats">Chats</button>
-            <button id="menu-vip">VIP</button>
-            <button id="menu-profile">Profile</button>
-            <button id="menu-settings">Settings</button>
-        </div>
-    </div>
+      </div>
 
-    <script src="script.js"></script>
+      <div id="profile-screen" class="hidden">
+        <h2>Your Profile</h2>
+        <div id="profile-info"></div>
+        <button id="logout-button">Logout</button>
+      </div>
+
+      <div class="bottom-menu">
+        <button id="menu-swipes">Swipes</button>
+        <button id="menu-chats">Chats</button>
+        <button id="menu-vip">VIP</button>
+        <button id="menu-profile">Profile</button>
+        <button id="menu-settings">Settings</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
