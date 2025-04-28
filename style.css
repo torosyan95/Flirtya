@@ -1,101 +1,125 @@
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .hidden {
-    display: none;
+  display: none;
+}
+
+#app {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: 20px;
 }
 
 .logo {
-    width: 150px;
-    margin-top: 50px;
+  width: 150px;
+  margin: 30px auto 10px;
+  display: block;
 }
 
 h1, h2 {
-    color: #fff;
-    margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
 }
 
-input {
-    display: block;
-    width: 80%;
-    margin: 10px auto;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
+input, select {
+  width: 90%;
+  margin: 10px auto;
+  padding: 12px;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #ccc;
 }
 
 button {
-    display: block;
-    width: 60%;
-    margin: 15px auto;
-    padding: 12px;
-    background-color: #ff4081;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  width: 70%;
+  margin: 15px auto;
+  padding: 12px;
+  background: #ff4081;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  display: block;
+  transition: all 0.3s;
 }
 
 button:hover {
-    background-color: #e91e63;
+  background: #e91e63;
+  transform: scale(1.05);
 }
 
 .link {
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-    margin-top: 10px;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-#card-area {
-    width: 300px;
-    height: 400px;
-    background: white;
-    margin: 20px auto;
-    border-radius: 20px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-}
-
-.swipe-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .bottom-menu {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #ffffff90;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    backdrop-filter: blur(10px);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
 }
 
 .bottom-menu button {
-    width: auto;
-    flex: 1;
-    margin: 0 5px;
-    padding: 10px 0;
-    background: transparent;
-    color: #6a1b9a;
-    font-weight: bold;
+  background: transparent;
+  border: none;
+  color: #6a1b9a;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#card-area {
+  width: 90%;
+  height: 400px;
+  background: #fff;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+}
+
+.swipe-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.swipe-buttons button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  color: #ff4081;
+  font-size: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.swipe-buttons button:hover {
+  background: #f8bbd0;
+  transform: scale(1.15);
 }
