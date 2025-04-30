@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flirtya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -14,19 +14,20 @@
 <body>
   <div id="app">
     <div id="welcome-screen">
-      <img src="logo.PNG" alt="Flirtya Logo" class="logo">
+      <img src="logo.png" class="logo" alt="Flirtya Logo">
       <h1>Welcome to Flirtya</h1>
       <button id="start-button">Get Started</button>
     </div>
 
     <div id="registration-screen" class="hidden">
       <h2>Create Account</h2>
-      <input type="text" id="reg-name" placeholder="Your Name">
-      <input type="email" id="reg-email" placeholder="Email">
+      <input type="text" id="reg-name" placeholder="Name">
+      <input type="email" id="reg-email" placeholder="Email or Phone">
       <input type="password" id="reg-password" placeholder="Password">
       <input type="date" id="reg-dob" placeholder="Date of Birth">
       <select id="reg-country"></select>
       <select id="reg-city"></select>
+      <label><input type="checkbox" id="terms"> I agree with the Terms</label>
       <button id="register-button">Register</button>
       <p class="link" id="to-login">Already have an account? Login</p>
     </div>
