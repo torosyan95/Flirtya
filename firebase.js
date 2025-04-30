@@ -1,5 +1,3 @@
-// Подключение к вашему проекту Firebase
-
 const firebaseConfig = {
   apiKey: "AIzaSyBuT_w-LYazd9NGgqElTt6X6286vWz7L78",
   authDomain: "flirtya.firebaseapp.com",
@@ -11,5 +9,4 @@ const firebaseConfig = {
   measurementId: "G-LWJ3ZSXGJ8"
 };
 
-// Инициализация Firebase
 firebase.initializeApp(firebaseConfig);
