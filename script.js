@@ -1498,3 +1498,575 @@ const app = {
                 }
             }, 2000);
         });
+
+const cancelButton = document.createElement('button');
+        cancelButton.className = 'btn-cancel';
+        cancelButton.textContent = this.translations.cancel || 'Cancel';
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        buttonsContainer.appendChild(confirmButton);
+        buttonsContainer.appendChild(cancelButton);
+        
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalText);
+        modalContent.appendChild(buttonsContainer);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    },
+    
+    // Обработка покупки других товаров (суперлайки, прочитано и т.д.)
+    handleItemPurchase: function(item, price, quantity) {
+        // В реальном приложении здесь была бы интеграция с платежной системой
+        
+        // Симулируем успешную покупку
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'payment-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        
+        const modalHeader = document.createElement('h3');
+        modalHeader.textContent = this.translations.purchase_confirmation || 'Purchase Confirmation';
+        
+        let itemName = '';
+        switch (item) {
+            case 'superlikes':
+                itemName = quantity + ' ' + (this.translations.superlikes || 'Superlikes');
+                break;
+            case 'read-status':
+                itemName = this.translations.read_status || 'Read Status';
+                break;
+            case 'boost':
+                itemName = this.translations.boost || 'Boost';
+                break;
+        }
+        
+        const modalText = document.createElement('p');
+        modalText.textContent = `${this.translations.confirm_purchase || 'Would you like to purchase'} ${itemName} ${this.translations.for_price || 'for'} $${price}?`;
+        
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'modal-buttons';
+        
+        const confirmButton = document.createElement('button');
+        confirmButton.className = 'btn-confirm';
+        confirmButton.textContent = this.translations.confirm || 'Confirm';
+        confirmButton.addEventListener('click', () => {
+            // Симулируем процесс оплаты
+            modalText.textContent = this.translations.processing_payment || 'Processing payment...';
+            buttonsContainer.style.display = 'none';
+            
+            setTimeout(() => {
+                // Обновляем соответствующий счетчик
+                switch (item) {
+                    case 'superlikes':
+                        this.vipStatus.superlikesLeft += quantity;
+                        document.querySelector('.superlike-count').textContent = this.vipStatus.superlikesLeft;
+                        break;
+                    case 'read-status':
+                        // Включаем статус прочтения для всех сообщений
+                        this.enableReadStatus();
+                        break;
+                    case 'boost':
+                        // Включаем буст на 1 час
+                        this.vipStatus.boosted = true;
+                        setTimeout(() => {
+                            this.vipStatus.boosted = false;
+                            localStorage.setItem('flirtya_vip_status', JSON.stringify(this.vipStatus));
+                        }, 3600000); // 1 час
+                        break;
+                }
+                
+                // Сохраняем статус VIP в localStorage
+                localStorage.setItem('flirtya_vip_status', JSON.stringify(this.vipStatus));
+                
+                // Показываем сообщение об успешной покупке
+                modalHeader.textContent = this.translations.purchase_successful || 'Purchase Successful';
+                
+                let successMessage = '';
+                switch (item) {
+                    case 'superlikes':
+                        successMessage = this.translations.superlikes_added || `${quantity} Superlikes have been added to your account!`;
+                        break;
+                    case 'read-status':
+                        successMessage = this.translations.read_status_activated || 'Read Status has been activated for your messages!';
+                        break;
+                    case 'boost':
+                        successMessage = this.translations.boost_activated || 'Your profile has been boosted for 1 hour!';
+                        break;
+                }
+                
+                modalText.textContent = successMessage;
+                
+                const closeButton = document.createElement('button');
+                closeButton.className = 'btn-close-modal';
+                closeButton.textContent = this.translations.close || 'Close';
+                closeButton.addEventListener('click', () => {
+                    document.body.removeChild(modal);
+                });
+                
+                buttonsContainer.innerHTML = '';
+                buttonsContainer.appendChild(closeButton);
+                buttonsContainer.style.display = 'flex';
+                
+                // Отправляем уведомление в Telegram о покупке
+                if (tg.initDataUnsafe?.user) {
+                    tg.sendData(JSON.stringify({
+                        action: 'item_purchased',
+                        item: item,
+                        price: price
+                    }));
+                }
+            }, 2000);
+        });
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'btn-cancel';
+        cancelButton.textContent = this.translations.cancel || 'Cancel';
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        buttonsContainer.appendChild(confirmButton);
+        buttonsContainer.appendChild(cancelButton);
+        
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalText);
+        modalContent.appendChild(buttonsContainer);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    },
+    
+    // Включение статуса прочтения для всех сообщений
+    enableReadStatus: function() {
+        // Обновляем все сообщения пользователя
+        this.chats.forEach(chat => {
+            if (chat.messages) {
+                chat.messages.forEach(message => {
+                    if (message.sender === 'user') {
+                        message.read = true;
+                    }
+                });
+            }
+        });
+        
+        // Сохраняем чаты в localStorage
+        localStorage.setItem('flirtya_chats', JSON.stringify(this.chats));
+        
+        // Обновляем отображение сообщений, если открыт чат
+        if (this.currentChat) {
+            this.updateMessagesDisplay();
+        }
+    },
+    
+    // Обновление интерфейса в зависимости от статуса VIP
+    updateVipInterface: function() {
+        // Обновляем счетчик суперлайков
+        document.querySelector('.superlike-count').textContent = this.vipStatus.isVip || this.vipStatus.isVipPlus 
+            ? '∞' 
+            : this.vipStatus.superlikesLeft;
+        
+        // Обновляем кнопки покупки VIP
+        const vipButtons = document.querySelectorAll('.btn-buy[data-plan="vip"]');
+        vipButtons.forEach(button => {
+            if (this.vipStatus.isVip) {
+                button.textContent = this.translations.active || 'Active';
+                button.disabled = true;
+                button.classList.add('active');
+            } else {
+                button.textContent = this.translations.get_vip || 'Get VIP';
+                button.disabled = false;
+                button.classList.remove('active');
+            }
+        });
+        
+        // Обновляем кнопки покупки VIP+
+        const vipPlusButtons = document.querySelectorAll('.btn-buy[data-plan="vip-plus"]');
+        vipPlusButtons.forEach(button => {
+            if (this.vipStatus.isVipPlus) {
+                button.textContent = this.translations.active || 'Active';
+                button.disabled = true;
+                button.classList.add('active');
+            } else {
+                button.textContent = this.translations.get_vip_plus || 'Get VIP+';
+                button.disabled = false;
+                button.classList.remove('active');
+            }
+        });
+        
+        // Обновляем значки VIP в профиле
+        const profileBadges = document.getElementById('profile-badges');
+        profileBadges.innerHTML = '';
+        
+        if (this.vipStatus.isVipPlus) {
+            const vipPlusBadge = document.createElement('span');
+            vipPlusBadge.className = 'badge vip-plus';
+            vipPlusBadge.textContent = 'VIP+';
+            profileBadges.appendChild(vipPlusBadge);
+        } else if (this.vipStatus.isVip) {
+            const vipBadge = document.createElement('span');
+            vipBadge.className = 'badge vip';
+            vipBadge.textContent = 'VIP';
+            profileBadges.appendChild(vipBadge);
+        }
+        
+        if (this.user.verified) {
+            const verifiedBadge = document.createElement('span');
+            verifiedBadge.className = 'badge verified';
+            verifiedBadge.innerHTML = '✓';
+            profileBadges.appendChild(verifiedBadge);
+        }
+        
+        // Обновляем настройки, доступные только для VIP+
+        const vipOnlySettings = document.querySelectorAll('.vip-only input');
+        vipOnlySettings.forEach(input => {
+            input.disabled = !this.vipStatus.isVipPlus;
+        });
+    },
+    
+    // Обновление отображения профиля
+    updateProfileDisplay: function() {
+        // Обновляем фото профиля
+        if (this.user.photos && this.user.photos.length > 0) {
+            document.getElementById('profile-photo').src = this.user.photos[0];
+            document.getElementById('user-avatar').src = this.user.photos[0];
+        }
+        
+        // Обновляем имя и возраст
+        const age = this.calculateAge(new Date(this.user.birthdate));
+        document.getElementById('profile-name').textContent = `${this.user.name}, ${age}`;
+        
+        // Обновляем местоположение
+        document.getElementById('profile-location').textContent = this.user.city ? `${this.user.city}, ${this.user.country}` : this.user.country;
+        
+        // Обновляем цель
+        document.getElementById('profile-goal').textContent = this.translations[`goal_${this.user.goal}`] || this.user.goal;
+        
+        // Обновляем интересы
+        const interestsContainer = document.getElementById('profile-interests');
+        interestsContainer.innerHTML = '';
+        
+        if (this.user.interests && this.user.interests.length > 0) {
+            this.user.interests.forEach(interest => {
+                const interestTag = document.createElement('span');
+                interestTag.className = 'interest-badge';
+                interestTag.textContent = interest;
+                interestsContainer.appendChild(interestTag);
+            });
+        } else {
+            const noInterests = document.createElement('p');
+            noInterests.className = 'no-interests';
+            noInterests.textContent = this.translations.no_interests || 'No interests added';
+            interestsContainer.appendChild(noInterests);
+        }
+        
+        // Обновляем информацию о себе
+        document.getElementById('profile-music').textContent = this.user.favoriteMusic || '-';
+        document.getElementById('profile-words').textContent = this.user.threeWords || '-';
+        
+        // Обновляем значки VIP
+        this.updateVipInterface();
+    },
+    
+    // Редактирование профиля
+    editProfile: function() {
+        // В реальном приложении здесь была бы форма редактирования профиля
+        alert(this.translations.edit_profile_alert || 'Profile editing is not implemented in this demo.');
+    },
+    
+    // Редактирование фото профиля
+    editProfilePhoto: function() {
+        // В реальном приложении здесь была бы возможность загрузить новое фото
+        alert(this.translations.edit_photo_alert || 'Photo editing is not implemented in this demo.');
+    },
+    
+    // Изменение языка
+    changeLanguage: function(lang) {
+        if (lang === this.currentLanguage) return;
+        
+        this.currentLanguage = lang;
+        
+        // Загружаем перевод
+        this.loadLanguageFile(lang);
+        
+        // Обновляем интерфейс
+        document.querySelectorAll('.btn-language').forEach(button => {
+            button.classList.toggle('active', button.getAttribute('data-lang') === lang);
+        });
+        
+        // Сохраняем выбранный язык
+        if (this.user) {
+            this.user.language = lang;
+            localStorage.setItem('flirtya_user', JSON.stringify(this.user));
+        }
+    },
+    
+    // Обновление значения ползунка
+    updateRangeValue: function(event) {
+        const range = event.target;
+        const valueElement = document.getElementById(`${range.id}-value`);
+        
+        if (valueElement) {
+            valueElement.textContent = range.value;
+        }
+    },
+    
+    // Сохранение настроек
+    saveSettings: function() {
+        // В реальном приложении здесь была бы логика сохранения настроек на сервере
+        console.log('Settings saved');
+        
+        // Сохраняем настройки в localStorage
+        const settings = {
+            lookingFor: document.querySelector('.setting-options .btn-option.active[data-option]').getAttribute('data-option'),
+            ageMin: document.getElementById('age-min').value,
+            ageMax: document.getElementById('age-max').value,
+            distance: document.getElementById('distance').value,
+            notifications: {
+                matches: document.getElementById('notif-matches').checked,
+                messages: document.getElementById('notif-messages').checked,
+                likes: document.getElementById('notif-likes').checked
+            },
+            privacy: {
+                showOnline: document.getElementById('privacy-online').checked,
+                anonymous: document.getElementById('privacy-anonymous').checked
+            }
+        };
+        
+        localStorage.setItem('flirtya_settings', JSON.stringify(settings));
+    },
+    
+    // Показ модального окна смены пароля
+    showChangePasswordModal: function() {
+        // В реальном приложении здесь было бы модальное окно для смены пароля
+        alert(this.translations.change_password_alert || 'Password changing is not implemented in this demo.');
+    },
+    
+    // Показ модального окна подтверждения удаления аккаунта
+    showDeleteAccountConfirmation: function() {
+        // Создаем модальное окно
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'delete-account-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content danger';
+        
+        const modalHeader = document.createElement('h3');
+        modalHeader.textContent = this.translations.delete_account || 'Delete Account';
+        
+        const modalText = document.createElement('p');
+        modalText.textContent = this.translations.delete_account_confirmation || 'Are you sure you want to delete your account? This action cannot be undone.';
+        
+        const warningText = document.createElement('p');
+        warningText.className = 'warning-text';
+        warningText.textContent = this.translations.delete_account_warning || 'All your data, matches, and conversations will be permanently lost.';
+        
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'modal-buttons';
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.className = 'btn-delete';
+        deleteButton.textContent = this.translations.yes_delete || 'Yes, Delete';
+        deleteButton.addEventListener('click', () => {
+            // Удаляем аккаунт
+            this.deleteAccount();
+            document.body.removeChild(modal);
+        });
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'btn-cancel';
+        cancelButton.textContent = this.translations.cancel || 'Cancel';
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        buttonsContainer.appendChild(deleteButton);
+        buttonsContainer.appendChild(cancelButton);
+        
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalText);
+        modalContent.appendChild(warningText);
+        modalContent.appendChild(buttonsContainer);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    },
+    
+    // Удаление аккаунта
+    deleteAccount: function() {
+        // Удаляем все данные пользователя из localStorage
+        localStorage.removeItem('flirtya_user');
+        localStorage.removeItem('flirtya_chats');
+        localStorage.removeItem('flirtya_vip_status');
+        localStorage.removeItem('flirtya_settings');
+        
+        // Удаляем фото
+        for (let i = 1; i <= 3; i++) {
+            localStorage.removeItem(`flirtya_photo-${i}`);
+        }
+        
+        // Отправляем уведомление в Telegram об удалении аккаунта
+        if (tg.initDataUnsafe?.user) {
+            tg.sendData(JSON.stringify({
+                action: 'account_deleted'
+            }));
+        }
+        
+        // Перезагружаем приложение
+        location.reload();
+    },
+    
+    // Выход из аккаунта
+    handleLogout: function() {
+        // Создаем модальное окно
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'logout-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        
+        const modalHeader = document.createElement('h3');
+        modalHeader.textContent = this.translations.logout || 'Logout';
+        
+        const modalText = document.createElement('p');
+        modalText.textContent = this.translations.logout_confirmation || 'Are you sure you want to logout?';
+        
+        const buttonsContainer = document.createElement('div');
+        buttonsContainer.className = 'modal-buttons';
+        
+        const logoutButton = document.createElement('button');
+        logoutButton.className = 'btn-logout';
+        logoutButton.textContent = this.translations.yes_logout || 'Yes, Logout';
+        logoutButton.addEventListener('click', () => {
+            // Удаляем сессию
+            localStorage.removeItem('flirtya_session');
+            
+            // Отправляем уведомление в Telegram о выходе
+            if (tg.initDataUnsafe?.user) {
+                tg.sendData(JSON.stringify({
+                    action: 'logout'
+                }));
+            }
+            
+            // Перезагружаем приложение
+            location.reload();
+        });
+        
+        const cancelButton = document.createElement('button');
+        cancelButton.className = 'btn-cancel';
+        cancelButton.textContent = this.translations.cancel || 'Cancel';
+        cancelButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        buttonsContainer.appendChild(logoutButton);
+        buttonsContainer.appendChild(cancelButton);
+        
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalText);
+        modalContent.appendChild(buttonsContainer);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    },
+    
+    // Связь с поддержкой
+    contactSupport: function() {
+        // В реальном приложении здесь был бы переход в чат с поддержкой
+        
+        // Открываем чат с поддержкой в Telegram
+        if (tg.initDataUnsafe?.user) {
+            tg.openTelegramLink('https://t.me/flirtya_support');
+        } else {
+            alert(this.translations.contact_support_alert || 'Support contact is not available in demo mode.');
+        }
+    },
+    
+    // Показ условий использования
+    showTerms: function() {
+        // Создаем модальное окно
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.id = 'terms-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content terms';
+        
+        const modalHeader = document.createElement('h3');
+        modalHeader.textContent = this.translations.terms_of_use || 'Terms of Use';
+        
+        const modalText = document.createElement('div');
+        modalText.className = 'terms-content';
+        
+        // Содержимое условий использования
+        modalText.innerHTML = `
+            <h4>${this.translations.terms_header_1 || 'Welcome to Flirtya'}</h4>
+            <p>${this.translations.terms_text_1 || 'Please read these terms carefully before using the application:'}</p>
+            
+            <h5>1. ${this.translations.terms_disclaimer || 'Disclaimer'}</h5>
+            <ul>
+                <li>${this.translations.terms_disclaimer_1 || 'The creator of this bot is not responsible for you not being able to meet someone.'}</li>
+                <li>${this.translations.terms_disclaimer_2 || 'All expenses in the application are made with your consent and are not refundable.'}</li>
+                <li>${this.translations.terms_disclaimer_3 || 'We do not guarantee that you will find love or serious relationships - it depends only on your luck and behavior.'}</li>
+            </ul>
+            
+            <h5>2. ${this.translations.terms_paid_features || 'Paid Features'}</h5>
+            <ul>
+                <li>${this.translations.terms_paid_1 || 'All purchases (VIP, superlikes, message read status, etc.) are non-refundable, even if you do not use them or delete your account.'}</li>
+                <li>${this.translations.terms_paid_2 || 'The administration reserves the right to delete any account in case of violation of the rules - even with an active VIP status.'}</li>
+            </ul>
+            
+            <h5>3. ${this.translations.terms_safety || 'Communication Safety'}</h5>
+            <ul>
+                <li>${this.translations.terms_safety_1 || 'Flirtya is not responsible for contacts and communication outside the platform.'}</li>
+                <li>${this.translations.terms_safety_2 || 'We do not verify the authenticity of Instagram, Telegram, WhatsApp, and other accounts that someone may mention in the chat.'}</li>
+            </ul>
+            
+            <h5>4. ${this.translations.terms_behavior || 'Rules of Behavior'}</h5>
+            <ul>
+                <li>${this.translations.terms_behavior_1 || 'Respect other users. Insults, offers of intimate services, fake profiles are prohibited.'}</li>
+                <li>${this.translations.terms_behavior_2 || 'Your account may be deleted without warning for breaking the rules.'}</li>
+            </ul>
+            
+            <h5>5. ${this.translations.terms_data || 'Consent to Data Processing'}</h5>
+            <ul>
+                <li>${this.translations.terms_data_1 || 'By registering, you consent to the storage of your data in the local storage of the device.'}</li>
+            </ul>
+        `;
+        
+        const closeButton = document.createElement('button');
+        closeButton.className = 'btn-close-modal';
+        closeButton.textContent = this.translations.close || 'Close';
+        closeButton.addEventListener('click', () => {
+            document.body.removeChild(modal);
+        });
+        
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(modalText);
+        modalContent.appendChild(closeButton);
+        
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    },
+    
+    // Показ политики конфиденциальности
+    showPrivacyPolicy: function() {
+        // В реальном приложении здесь было бы модальное окно с политикой конфиденциальности
+        this.showTerms(); // Используем тот же метод для демо
+    }
+};
+
+// Инициализация приложения при загрузке документа
+document.addEventListener('DOMContentLoaded', () => {
+    // Скрываем загрузочный экран после небольшой задержки
+    setTimeout(() => {
+        document.getElementById('loading-screen').style.display = 'none';
+        app.init();
+    }, 1500);
+});
