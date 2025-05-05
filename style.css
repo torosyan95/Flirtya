@@ -1501,3 +1501,308 @@ input.error, select.error {
 .icebreakers h4 {
     text-align: center;
     margin-bottom
+
+    .icebreakers h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: var(--primary);
+}
+
+.icebreakers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icebreaker {
+    background-color: white;
+    border-radius: var(--radius);
+    padding: 12px 15px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.icebreaker:active {
+    background-color: var(--background);
+}
+
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid var(--border);
+}
+
+.message-input {
+    flex: 1;
+    position: relative;
+}
+
+.message-input input {
+    width: 100%;
+    padding: 12px;
+    padding-right: 40px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+.btn-send {
+    background: var(--gradient);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.btn-send img {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-attach {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+}
+
+.btn-attach img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Модальные окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: var(--radius);
+    max-width: 90%;
+    width: 350px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.modal-content.danger {
+    border-top: 5px solid var(--danger);
+}
+
+.modal-content.terms {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-content h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-content p {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-close-modal {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.btn-confirm {
+    background: var(--gradient);
+    color: white;
+}
+
+.btn-cancel {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.btn-delete {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-logout {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-vip-modal, .btn-buy-modal {
+    background: var(--gradient);
+    color: white;
+}
+
+.warning-text {
+    color: var(--danger);
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.terms-content {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.terms-content h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.terms-content h5 {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.terms-content p {
+    margin-bottom: 15px;
+}
+
+.terms-content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.terms-content li {
+    margin-bottom: 8px;
+}
+
+/* Анимации для бэйджей */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.badge.new {
+    animation: pulse 1s infinite;
+}
+
+/* Матч-модальное окно */
+.match-modal .modal-content {
+    background: var(--gradient);
+    color: white;
+    text-align: center;
+}
+
+.match-header {
+    font-size: 28px !important;
+    margin-bottom: 10px !important;
+}
+
+.match-text {
+    font-size: 18px;
+    margin-bottom: 30px !important;
+}
+
+.match-photos {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.your-photo, .match-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid white;
+}
+
+.your-photo {
+    margin-right: -15px;
+    z-index: 1;
+}
+
+.match-photo {
+    margin-left: -15px;
+    z-index: 0;
+}
+
+.btn-chat-now {
+    background-color: white;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.btn-continue-swiping {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (min-width: 768px) {
+    .vip-plans {
+        flex-direction: row;
+    }
+    
+    .vip-plan {
+        flex: 1;
+    }
+}
+
+@media (max-width: 360px) {
+    .swipe-buttons {
+        gap: 10px;
+    }
+    
+    .btn-dislike, .btn-like, .btn-superlike {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .btn-dislike img, .btn-like img, .btn-superlike img {
+        width: 25px;
+        height: 25px;
+    }
+}
