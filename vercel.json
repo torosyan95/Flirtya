@@ -1,0 +1,27 @@
+json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "bot/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "bot/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "webapp/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "assets/$1"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
