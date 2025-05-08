@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Flirtya</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/animations.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
@@ -26,21 +25,27 @@
                 <div class="slide-content">
                     <h1 data-i18n="onboarding_welcome">Welcome to Flirtya</h1>
                     <p data-i18n="onboarding_subtitle">Find your perfect match right here in Telegram</p>
-                    <img src="assets/images/onboarding-1.svg" alt="Welcome" class="onboarding-image">
+                    <div class="onboarding-image-container">
+                        <img src="assets/images/onboarding-1.svg" alt="Welcome" class="onboarding-image">
+                    </div>
                 </div>
             </div>
             <div class="slide" id="slide-2">
                 <div class="slide-content">
                     <h1 data-i18n="onboarding_swipe">Swipe & Match</h1>
                     <p data-i18n="onboarding_swipe_text">Find people who share your interests</p>
-                    <img src="assets/images/onboarding-2.svg" alt="Swipe" class="onboarding-image">
+                    <div class="onboarding-image-container">
+                        <img src="assets/images/onboarding-2.svg" alt="Swipe" class="onboarding-image">
+                    </div>
                 </div>
             </div>
             <div class="slide" id="slide-3">
                 <div class="slide-content">
                     <h1 data-i18n="onboarding_chat">Chat & Connect</h1>
                     <p data-i18n="onboarding_chat_text">Start meaningful conversations</p>
-                    <img src="assets/images/onboarding-3.svg" alt="Chat" class="onboarding-image">
+                    <div class="onboarding-image-container">
+                        <img src="assets/images/onboarding-3.svg" alt="Chat" class="onboarding-image">
+                    </div>
                 </div>
             </div>
         </div>
@@ -342,33 +347,6 @@
                             <button class="btn-buy" data-plan="vip-plus" data-period="monthly" data-price="24.99" data-i18n="get_vip_plus">Get VIP+</button>
                         </div>
                     </div>
-
-                    <div class="other-purchases">
-                        <h3 data-i18n="other_purchases">Other Purchases</h3>
-                        <div class="purchase-items">
-                            <div class="purchase-item">
-                                <div class="item-info">
-                                    <h4 data-i18n="superlikes">Superlikes</h4>
-                                    <p data-i18n="superlikes_description">Stand out and get noticed</p>
-                                </div>
-                                <button class="btn-buy-item" data-item="superlikes" data-quantity="3" data-price="0.99">3 for $0.99</button>
-                            </div>
-                            <div class="purchase-item">
-                                <div class="item-info">
-                                    <h4 data-i18n="read_status">Read Status</h4>
-                                    <p data-i18n="read_status_description">See when your messages are read</p>
-                                </div>
-                                <button class="btn-buy-item" data-item="read-status" data-price="0.49">$0.49</button>
-                            </div>
-                            <div class="purchase-item">
-                                <div class="item-info">
-                                    <h4 data-i18n="boost">Boost</h4>
-                                    <p data-i18n="boost_description">Get more visibility for 1 hour</p>
-                                </div>
-                                <button class="btn-buy-item" data-item="boost" data-price="1.49">$1.49</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -385,35 +363,6 @@
                         <div class="profile-info">
                             <h2 id="profile-name">Name, Age</h2>
                             <p id="profile-location">Location</p>
-                            <div class="profile-badges" id="profile-badges">
-                                <!-- Значки будут добавляться динамически -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="profile-details">
-                        <div class="profile-section">
-                            <h3 data-i18n="goal">Goal</h3>
-                            <p id="profile-goal">Goal</p>
-                        </div>
-                        <div class="profile-section">
-                            <h3 data-i18n="interests">Interests</h3>
-                            <div class="profile-interests" id="profile-interests">
-                                <!-- Интересы будут добавляться динамически -->
-                            </div>
-                        </div>
-                        <div class="profile-section">
-                            <h3 data-i18n="about_me">About Me</h3>
-                            <div class="profile-answers">
-                                <div class="profile-answer">
-                                    <h4 data-i18n="favorite_music">Favorite Music</h4>
-                                    <p id="profile-music">Music</p>
-                                </div>
-                                <div class="profile-answer">
-                                    <h4 data-i18n="three_words">Three Words</h4>
-                                    <p id="profile-words">Words</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -421,109 +370,6 @@
                         <button id="btn-edit-profile" class="btn-action" data-i18n="edit_profile">Edit Profile</button>
                         <button id="btn-settings" class="btn-action" data-i18n="settings">Settings</button>
                         <button id="btn-logout" class="btn-action danger" data-i18n="logout">Logout</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Страница настроек -->
-            <div id="settings-page" class="page">
-                <div class="settings-container">
-                    <h2 data-i18n="settings">Settings</h2>
-                    
-                    <div class="settings-section">
-                        <h3 data-i18n="language">Language</h3>
-                        <div class="language-selector">
-                            <button class="btn-language active" data-lang="en">English</button>
-                            <button class="btn-language" data-lang="ru">Русский</button>
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h3 data-i18n="discovery">Discovery</h3>
-                        <div class="setting-item">
-                            <label data-i18n="looking_for">Looking for</label>
-                            <div class="setting-options">
-                                <button class="btn-option active" data-option="all" data-i18n="all">All</button>
-                                <button class="btn-option" data-option="male" data-i18n="men">Men</button>
-                                <button class="btn-option" data-option="female" data-i18n="women">Women</button>
-                            </div>
-                        </div>
-                        <div class="setting-item">
-                            <label data-i18n="age_range">Age Range</label>
-                            <div class="range-slider">
-                                <input type="range" id="age-min" min="18" max="80" value="18" class="slider">
-                                <input type="range" id="age-max" min="18" max="80" value="50" class="slider">
-                                <div class="range-values">
-                                    <span id="age-min-value">18</span> - <span id="age-max-value">50</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="setting-item">
-                            <label data-i18n="distance">Distance</label>
-                            <div class="range-slider single">
-                                <input type="range" id="distance" min="1" max="100" value="50" class="slider">
-                                <div class="range-values">
-                                    <span id="distance-value">50</span> km
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h3 data-i18n="notifications">Notifications</h3>
-                        <div class="setting-item toggle">
-                            <span data-i18n="new_matches">New Matches</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-matches" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="setting-item toggle">
-                            <span data-i18n="new_messages">New Messages</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-messages" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="setting-item toggle">
-                            <span data-i18n="likes_received">Likes Received</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-likes" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h3 data-i18n="privacy">Privacy</h3>
-                        <div class="setting-item toggle">
-                            <span data-i18n="show_online">Show Online Status</span>
-                            <label class="switch">
-                                <input type="checkbox" id="privacy-online" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="setting-item toggle vip-only">
-                            <span data-i18n="anonymous_mode">Anonymous Mode</span>
-                            <label class="switch">
-                                <input type="checkbox" id="privacy-anonymous" disabled>
-                                <span class="slider round"></span>
-                            </label>
-                            <span class="vip-badge" data-i18n="vip_plus_only">VIP+ Only</span>
-                        </div>
-                    </div>
-
-                    <div class="settings-section">
-                        <h3 data-i18n="account">Account</h3>
-                        <button class="btn-settings-action" id="btn-change-password" data-i18n="change_password">Change Password</button>
-                        <button class="btn-settings-action danger" id="btn-delete-account" data-i18n="delete_account">Delete Account</button>
-                    </div>
-
-                    <div class="settings-section">
-                        <h3 data-i18n="help_support">Help & Support</h3>
-                        <button class="btn-settings-action" id="btn-contact-support" data-i18n="contact_support">Contact Support</button>
-                        <button class="btn-settings-action" id="btn-terms" data-i18n="terms_of_use">Terms of Use</button>
-                        <button class="btn-settings-action" id="btn-privacy" data-i18n="privacy_policy">Privacy Policy</button>
                     </div>
                 </div>
             </div>
@@ -551,23 +397,7 @@
         </div>
     </div>
 
-    <!-- Страница чата -->
-    <div id="chat-room" class="screen hidden">
-        <div class="chat-header">
-            <button class="btn-back" id="chat-back">
-                <img src="assets/icons/back.svg" alt="Back">
-            </button>
-            <div class="chat-user">
-                <img src="assets/images/default-avatar.svg" alt="User" id="chat-user-avatar">
-                <div class="chat-user-info">
-                    <h3 id="chat-user-name">Name</h3>
-                    <span id="chat-user-status">Online</span>
-                </div>
-            </div>
-            <button class="btn-chat-options" id="chat-options">
-                <img src="assets/icons/options.svg" alt="Options">
-            </button>
-        </div>
-
-        <div class="messages-container" id="messages-container">
-            <!--
+    <script src="js/preloader.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
