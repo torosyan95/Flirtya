@@ -1,15 +1,29 @@
-<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#8a2be2" />
       <stop offset="100%" stop-color="#ff3e96" />
     </linearGradient>
   </defs>
-  <g>
-    <circle cx="100" cy="100" r="90" fill="url(#gradient)" />
-    <circle cx="100" cy="100" r="80" fill="#000000" opacity="0.2" />
-    <path d="M100,30 L130,80 L160,140 H40 L70,80 Z" fill="white" />
-    <circle cx="100" cy="70" r="15" fill="white" />
-  </g>
-  <text x="100" y="170" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="white">Flirtya</text>
+  <circle cx="150" cy="100" r="60" fill="white" opacity="0.9" />
+  <circle cx="150" cy="200" r="60" fill="white" opacity="0.9" />
+  
+  <!-- Female silhouette -->
+  <path d="M140,70 Q150,50 160,70 Q170,60 170,80 L170,115 Q150,130 130,115 L130,80 Q130,60 140,70 Z" fill="#ff3e96" opacity="0.9" />
+  <circle cx="150" cy="60" r="15" fill="#ff3e96" opacity="0.9" />
+  
+  <!-- Male silhouette -->
+  <path d="M140,170 Q150,150 160,170 Q170,160 170,180 L170,215 Q150,230 130,215 L130,180 Q130,160 140,170 Z" fill="#8a2be2" opacity="0.9" />
+  <circle cx="150" cy="160" r="15" fill="#8a2be2" opacity="0.9" />
+  
+  <!-- Heart connecting them -->
+  <path d="M150,130 L170,110 Q190,90 180,120 L150,150 L120,120 Q110,90 130,110 Z" fill="url(#gradient)" />
+  
+  <!-- Sparks -->
+  <circle cx="120" cy="80" r="3" fill="white" />
+  <circle cx="180" cy="80" r="3" fill="white" />
+  <circle cx="120" cy="180" r="3" fill="white" />
+  <circle cx="180" cy="180" r="3" fill="white" />
+  <circle cx="110" cy="130" r="3" fill="white" />
+  <circle cx="190" cy="130" r="3" fill="white" />
 </svg>
