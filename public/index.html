@@ -183,3 +183,236 @@
                             <span data-i18n="terms_agree">I agree to the Terms of Use</span>
                         </label>
                         <a href="#" id="view-terms" data-i18n="view_terms">View Terms</a>
+
+        </div>
+                    <div class="buttons-row">
+                        <button type="button" class="btn-prev-step" data-i18n="back">Back</button>
+                        <button type="submit" class="btn-register" data-i18n="register">Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Основное приложение -->
+    <div id="main-app" class="screen hidden">
+        <!-- Верхняя панель -->
+        <div class="top-bar">
+            <div class="logo-small">Flirtya</div>
+            <div class="user-profile">
+                <img src="assets/images/default-avatar.svg" alt="Profile" id="user-avatar">
+            </div>
+        </div>
+
+        <!-- Контейнер для страниц -->
+        <div class="page-container">
+            <!-- Страница свайпов -->
+            <div id="swipes-page" class="page active">
+                <div class="cards-container">
+                    <!-- Карточки будут добавляться динамически -->
+                    <div class="no-cards-message hidden" data-i18n="no_more_people">No more people nearby. Try again later!</div>
+                </div>
+                <div class="swipe-buttons">
+                    <button class="btn-dislike" id="dislike">
+                        <img src="assets/icons/dislike.svg" alt="Dislike">
+                    </button>
+                    <button class="btn-superlike" id="superlike">
+                        <img src="assets/icons/superlike.svg" alt="Superlike">
+                        <span class="superlike-count">3</span>
+                    </button>
+                    <button class="btn-like" id="like">
+                        <img src="assets/icons/like.svg" alt="Like">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Страница чатов -->
+            <div id="chats-page" class="page">
+                <div class="chats-list">
+                    <!-- Чаты будут добавляться динамически -->
+                    <div class="no-chats-message" data-i18n="no_chats">No matches yet. Start swiping to find matches!</div>
+                </div>
+            </div>
+
+            <!-- Страница VIP -->
+            <div id="vip-page" class="page">
+                <div class="vip-container">
+                    <div class="vip-header">
+                        <h2 data-i18n="upgrade_experience">Upgrade Your Experience</h2>
+                        <p data-i18n="vip_description">Get access to premium features and boost your chances</p>
+                    </div>
+
+                    <div class="vip-plans">
+                        <div class="vip-plan">
+                            <div class="plan-header">
+                                <h3>VIP</h3>
+                                <div class="plan-price">
+                                    <span class="price-value">$19.99</span>
+                                    <span class="price-period" data-i18n="per_month">/month</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li data-i18n="vip_feature_1">VIP badge</li>
+                                    <li data-i18n="vip_feature_2">Send messages first</li>
+                                    <li data-i18n="vip_feature_3">Unlimited likes</li>
+                                    <li data-i18n="vip_feature_4">3 Superlikes daily</li>
+                                    <li data-i18n="vip_feature_5">Extended filters</li>
+                                    <li data-i18n="vip_feature_6">Daily boost</li>
+                                    <li data-i18n="vip_feature_7">No ads</li>
+                                </ul>
+                            </div>
+                            <button class="btn-buy" data-plan="vip_monthly" data-period="monthly" data-price="19.99" data-i18n="get_vip">Get VIP</button>
+                        </div>
+
+                        <div class="vip-plan premium">
+                            <div class="plan-header">
+                                <h3>VIP+</h3>
+                                <div class="plan-price">
+                                    <span class="price-value">$24.99</span>
+                                    <span class="price-period" data-i18n="per_month">/month</span>
+                                </div>
+                            </div>
+                            <div class="plan-features">
+                                <ul>
+                                    <li data-i18n="vip_plus_feature_1">All VIP features</li>
+                                    <li data-i18n="vip_plus_feature_2">Priority visibility</li>
+                                    <li data-i18n="vip_plus_feature_3">Gifts, Stories, Read status</li>
+                                    <li data-i18n="vip_plus_feature_4">See who liked you</li>
+                                    <li data-i18n="vip_plus_feature_5">Anonymous mode</li>
+                                    <li data-i18n="vip_plus_feature_6">Gift VIP to others</li>
+                                </ul>
+                            </div>
+                            <button class="btn-buy" data-plan="vip_plus_monthly" data-period="monthly" data-price="24.99" data-i18n="get_vip_plus">Get VIP+</button>
+                        </div>
+                    </div>
+
+                    <div class="other-purchases">
+                        <h3 data-i18n="other_purchases">Other Purchases</h3>
+                        <div class="purchase-items">
+                            <div class="purchase-item">
+                                <div class="item-info">
+                                    <h4 data-i18n="superlikes">Superlikes</h4>
+                                    <p data-i18n="superlikes_description">Stand out and get noticed</p>
+                                </div>
+                                <button class="btn-buy-item" data-item="superlikes" data-quantity="5" data-price="2.99">5 for $2.99</button>
+                            </div>
+                            <div class="purchase-item">
+                                <div class="item-info">
+                                    <h4 data-i18n="boost">Boost</h4>
+                                    <p data-i18n="boost_description">Get more visibility for 1 hour</p>
+                                </div>
+                                <button class="btn-buy-item" data-item="boost" data-price="1.49">$1.49</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Страница профиля -->
+            <div id="profile-page" class="page">
+                <div class="profile-container">
+                    <div class="profile-header">
+                        <div class="profile-photo">
+                            <img src="assets/images/default-avatar.svg" alt="Profile" id="profile-photo">
+                            <button class="btn-edit-photo" id="edit-profile-photo">
+                                <img src="assets/icons/edit.svg" alt="Edit">
+                            </button>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="profile-name">Name, Age</h2>
+                            <p id="profile-location">Location</p>
+                            <div class="profile-badges" id="profile-badges">
+                                <!-- Значки будут добавляться динамически -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+                        <div class="profile-section">
+                            <h3 data-i18n="goal">Goal</h3>
+                            <p id="profile-goal">Goal</p>
+                        </div>
+                        <div class="profile-section">
+                            <h3 data-i18n="interests">Interests</h3>
+                            <div class="profile-interests" id="profile-interests">
+                                <!-- Интересы будут добавляться динамически -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-actions">
+                        <button id="btn-edit-profile" class="btn-action" data-i18n="edit_profile">Edit Profile</button>
+                        <button id="btn-settings" class="btn-action" data-i18n="settings">Settings</button>
+                        <button id="btn-logout" class="btn-action danger" data-i18n="logout">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <div class="bottom-nav">
+            <button class="nav-item active" data-page="swipes-page">
+                <img src="assets/icons/swipe.svg" alt="Swipe" class="nav-icon">
+                <span data-i18n="swipes">Swipes</span>
+            </button>
+            <button class="nav-item" data-page="chats-page">
+                <img src="assets/icons/chat.svg" alt="Chat" class="nav-icon">
+                <span data-i18n="chats">Chats</span>
+                <span class="badge" id="chats-badge">0</span>
+            </button>
+            <button class="nav-item" data-page="vip-page">
+                <img src="assets/icons/vip.svg" alt="VIP" class="nav-icon">
+                <span data-i18n="vip">VIP</span>
+            </button>
+            <button class="nav-item" data-page="profile-page">
+                <img src="assets/icons/profile.svg" alt="Profile" class="nav-icon">
+                <span data-i18n="profile">Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Чат -->
+    <div id="chat-room" class="screen hidden">
+        <div class="chat-header">
+            <button class="btn-back" id="chat-back">
+                <img src="assets/icons/back.svg" alt="Back">
+            </button>
+            <div class="chat-user">
+                <img src="assets/images/default-avatar.svg" alt="User" id="chat-user-avatar">
+                <div class="chat-user-info">
+                    <h3 id="chat-user-name">Name</h3>
+                    <span id="chat-user-status">Online</span>
+                </div>
+            </div>
+            <button class="btn-chat-options" id="chat-options">
+                <img src="assets/icons/options.svg" alt="Options">
+            </button>
+        </div>
+
+        <div class="messages-container" id="messages-container">
+            <!-- Сообщения будут добавляться динамически -->
+        </div>
+
+        <div class="chat-input-container">
+            <div class="message-input">
+                <input type="text" placeholder="Type a message..." id="message-input">
+                <button class="btn-attach" id="attach-file">
+                    <img src="assets/icons/attach.svg" alt="Attach">
+                </button>
+            </div>
+            <button class="btn-send" id="send-message">
+                <img src="assets/icons/send.svg" alt="Send">
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div id="modal-container" class="hidden"></div>
+
+    <!-- Скрипты -->
+    <script src="js/i18n.js"></script>
+    <script src="js/payment.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
