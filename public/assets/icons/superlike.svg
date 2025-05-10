@@ -1,0 +1,13 @@
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="star-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#17a2b8" />
+            <stop offset="100%" stop-color="#00d4ff" />
+        </linearGradient>
+    </defs>
+    <path d="M25,5 L30,18 L44,18 L33,26 L37,40 L25,32 L13,40 L17,26 L6,18 L20,18 Z" 
+          fill="url(#star-gradient)" 
+          stroke="#17a2b8" 
+          stroke-width="1.5" 
+          stroke-linejoin="round" />
+</svg>
