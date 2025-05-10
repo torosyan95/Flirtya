@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Flirtya</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Загрузочный экран -->
+    <div id="loading-screen">
+        <div class="loading-container">
+            <div class="logo-container">
+                <div class="logo">
+                    <div class="triangle"></div>
+                    <div class="logo-text">Flirtya</div>
+                </div>
+            </div>
+            <div class="loader"></div>
+        </div>
+    </div>
+
+    <!-- Онбординг -->
+    <div id="onboarding" class="screen hidden">
+        <div class="onboarding-slider">
+            <div class="slide active" id="slide-1">
+                <div class="slide-content">
+                    <h1 data-i18n="onboarding_welcome">Welcome to Flirtya</h1>
+                    <p data-i18n="onboarding_subtitle">Find your perfect match right here in Telegram</p>
+                    <div class="onboarding-image-container">
+                        <div class="onboarding-image image-1"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" id="slide-2">
+                <div class="slide-content">
+                    <h1 data-i18n="onboarding_swipe">Swipe & Match</h1>
+                    <p data-i18n="onboarding_swipe_text">Find people who share your interests</p>
+                    <div class="onboarding-image-container">
+                        <div class="onboarding-image image-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide" id="slide-3">
+                <div class="slide-content">
+                    <h1 data-i18n="onboarding_chat">Chat & Connect</h1>
+                    <p data-i18n="onboarding_chat_text">Start meaningful conversations</p>
+                    <div class="onboarding-image-container">
+                        <div class="onboarding-image image-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="onboarding-controls">
+            <div class="dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+            <div class="buttons">
+                <button class="btn-skip" data-i18n="skip">Skip</button>
+                <button class="btn-next" data-i18n="next">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Регистрация -->
+    <div id="registration" class="screen hidden">
+        <div class="registration-container">
+            <h1 data-i18n="create_account">Create Account</h1>
+            <form id="registration-form">
+                <div class="form-step active" id="step-personal">
+                    <div class="form-group">
+                        <label for="name" data-i18n="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="gender">Gender</label>
+                        <div class="gender-options">
+                            <label>
+                                <input type="radio" name="gender" value="male" required>
+                                <span data-i18n="male">Male</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="gender" value="female" required>
+                                <span data-i18n="female">Female</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate" data-i18n="birth_date">Birth Date</label>
+                        <input type="date" id="birthdate" name="birthdate" required>
+                    </div>
+                    <button type="button" class="btn-next-step" data-i18n="next">Next</button>
+                </div>
+
+                <div class="form-step" id="step-location">
+                    <div class="form-group">
+                        <label for="country" data-i18n="country">Country</label>
+                        <select id="country" name="country" required>
+                            <option value="">Select Country</option>
+                            <option value="ru">Russia</option>
+                            <option value="ua">Ukraine</option>
+                            <option value="by">Belarus</option>
+                            <option value="kz">Kazakhstan</option>
+                            <option value="uz">Uzbekistan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city" data-i18n="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal" data-i18n="goal">Goal</label>
+                        <select id="goal" name="goal" required>
+                            <option value="love" data-i18n="goal_love">Love</option>
+                            <option value="friendship" data-i18n="goal_friendship">Friendship</option>
+                            <option value="chat" data-i18n="goal_chat">Chat</option>
+                        </select>
+                    </div>
+                    <div class="buttons-row">
+                        <button type="button" class="btn-prev-step" data-i18n="back">Back</button>
+                        <button type="button" class="btn-next-step" data-i18n="next">Next</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step-interests">
+                    <div class="form-group">
+                        <label data-i18n="interests">Interests</label>
+                        <p class="hint" data-i18n="select_interests">Select at least 3 interests</p>
+                        <div class="interests-container">
+                            <div class="interest-tag" data-interest="music">Music</div>
+                            <div class="interest-tag" data-interest="movies">Movies</div>
+                            <div class="interest-tag" data-interest="sports">Sports</div>
+                            <div class="interest-tag" data-interest="travel">Travel</div>
+                            <div class="interest-tag" data-interest="food">Food</div>
+                            <div class="interest-tag" data-interest="art">Art</div>
+                            <div class="interest-tag" data-interest="books">Books</div>
+                            <div class="interest-tag" data-interest="technology">Technology</div>
+                        </div>
+                        <input type="hidden" id="interests" name="interests">
+                    </div>
+                    <div class="buttons-row">
+                        <button type="button" class="btn-prev-step" data-i18n="back">Back</button>
+                        <button type="button" class="btn-next-step" data-i18n="next">Next</button>
+                    </div>
+                </div>
+
+                <div class="form-step" id="step-photos">
+                    <div class="form-group">
+                        <label data-i18n="add_photos">Add Photos</label>
+                        <div class="photos-container">
+                            <div class="photo-upload-box" id="photo-upload-1">
+                                <input type="file" accept="image/*" id="photo-1" name="photo-1" class="photo-input">
+                                <label for="photo-1" class="photo-label">
+                                    <div class="photo-placeholder">+</div>
+                                    <span data-i18n="add_photo">Add Photo</span>
+                                </label>
+                                <div class="photo-preview"></div>
+                            </div>
+                            <div class="photo-upload-box" id="photo-upload-2">
+                                <input type="file" accept="image/*" id="photo-2" name="photo-2" class="photo-input">
+                                <label for="photo-2" class="photo-label">
+                                    <div class="photo-placeholder">+</div>
+                                    <span data-i18n="add_photo">Add Photo</span>
+                                </label>
+                                <div class="photo-preview"></div>
+                            </div>
+                            <div class="photo-upload-box" id="photo-upload-3">
+                                <input type="file" accept="image/*" id="photo-3" name="photo-3" class="photo-input">
+                                <label for="photo-3" class="photo-label">
+                                    <div class="photo-placeholder">+</div>
+                                    <span data-i18n="add_photo">Add Photo</span>
+                                </label>
+                                <div class="photo-preview"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group terms-checkbox">
+                        <label>
+                            <input type="checkbox" id="terms-agree" name="terms-agree" required>
+                            <span data-i18n="terms_agree">I agree to the Terms of Use</span>
+                        </label>
+                        <a href="#" id="view-terms" data-i18n="view_terms">View Terms</a>
