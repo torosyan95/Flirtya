@@ -28,6 +28,7 @@ const app = {
     // Инициализация приложения
     init: function() {
         // Получаем Telegram WebApp
+        console.log('App component rendered');
         this.tg = window.Telegram?.WebApp;
         
         // Применяем цвета темы Telegram
