@@ -872,7 +872,7 @@ setupEventListeners: function() {
         modal.querySelector('.btn-close').addEventListener('click', () => {
             document.body.removeChild(modal);
         });
-      }, 100); // Задержка 100мс  
+      }, 500); // Задержка 500мс  
     },
     
     // Загрузка чатов
