@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flirtya</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #8a2be2, #ff3e96);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: white;
+        }
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+        .page.active {
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: #8a2be2;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        .nav {
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+        .nav-item {
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        .nav-item.active {
+            background: rgba(255,255,255,0.2);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+            width: 100%;
+            max-width: 300px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+        .card {
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px auto;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .card-photo {
+            height: 300px;
+            background: linear-gradient(45deg, #8a2be2, #ff3e96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        .card-info {
+            padding: 15px;
+            color: #333;
+        }
+        .card-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .swipe-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        .swipe-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .swipe-btn.dislike {
+            color: #ff3e96;
+        }
+        .swipe-btn.like {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <!-- Главная страница -->
+    <div id="home" class="page active">
+        <div class="header">Flirtya</div>
+        
+        <div class="main">
+            <div class="logo"></div>
+            <h1>Добро пожаловать в Flirtya!</h1>
+            <p>Найди свою идеальную пару прямо в Telegram</p>
+            
+            <div class="buttons">
+                <button id="startBtn">Начать знакомства</button>
+                <button class="secondary" id="aboutBtn">О приложении</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            Flirtya © 2025. Создано с ❤️
+        </div>
+    </div>
+
+    <!-- Регистрация -->
+    <div id="register" class="page">
+        <div class="header">Регистрация</div>
+        
+        <div class="main">
+            <h1>Создайте профиль</h1>
+            <p>Расскажите немного о себе</p>
+            
+            <div class="form-group">
+                <label>Ваше имя:</label>
+                <input type="text" id="nameInput" placeholder="Введите имя">
+            </div>
+            
+            <div class="form-group">
+                <label>Возраст:</label>
+                <input type="number" id="ageInput" placeholder="Введите возраст" min="18" max="100">
+            </div>
+            
+            <div class="form-group">
+                <label>Пол:</label>
+                <select id="genderInput">
+                    <option value="">Выберите пол</option>
+                    <option value="male">Мужской</option>
+                    <option value="female">Женский</option>
+                </select>
+            </div>
+            
+            <div class="buttons">
+                <button id="registerBtn">Создать профиль</button>
+                <button class="secondary" id="backToHome">Назад</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Свайпы -->
+    <div id="swipes" class="page">
+        <div class="header">Swipe Dating</div>
+        
+        <div class="main">
+            <div class="card">
+                <div class="card-photo">
+                    <div id="cardName">Анна, 25</div>
+                </div>
+                <div class="card-info">
+                    <h3>Анна, 25</h3>
+                    <p>Москва | Музыка, Путешествия</p>
+                </div>
+            </div>
+            
+            <div class="swipe-buttons">
+                <button class="swipe-btn dislike" id="dislikeBtn">❌</button>
+                <button class="swipe-btn like" id="likeBtn">❤️</button>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-item active" id="navSwipes">Свайпы</div>
+            <div class="nav-item" id="navMatches">Совпадения</div>
+            <div class="nav-item" id="navProfile">Профиль</div>
+        </div>
+    </div>
+
+    <!-- Совпадения -->
+    <div id="matches" class="page">
+        <div class="header">Ваши совпадения</div>
+        
+        <div class="main">
+            <h1>Пока нет совпадений</h1>
+            <p>Продолжайте свайпать, чтобы найти совпадения!</p>
+            
+            <div class="buttons">
+                <button id="backToSwipes">Вернуться к свайпам</button>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-item" id="navSwipes2">Свайпы</div>
+            <div class="nav-item active" id="navMatches2">Совпадения</div>
+            <div class="nav-item" id="navProfile2">Профиль</div>
+        </div>
+    </div>
+
+    <!-- Профиль -->
+    <div id="profile" class="page">
+        <div class="header">Мой профиль</div>
+        
+        <div class="main">
+            <h1 id="profileName">Имя, Возраст</h1>
+            <p id="profileInfo">Пол | Город</p>
+            
+            <div class="buttons">
+                <button id="editProfile">Редактировать профиль</button>
+                <button class="secondary" id="logoutBtn">Выход</button>
+            </div>
+        </div>
+        
+        <div class="nav">
+            <div class="nav-item" id="navSwipes3">Свайпы</div>
+            <div class="nav-item" id="navMatches3">Совпадения</div>
+            <div class="nav-item active" id="navProfile3">Профиль</div>
+        </div>
+    </div>
+
+    <script>
+        // Инициализация Telegram WebApp
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand();
+        }
+
+        // Данные приложения
+        let userData = null;
+        let currentPage = 'home';
+
+        // Демо пользователи
+        const demoUsers = [
+            {name: 'Анна', age: 25, gender: 'female', city: 'Москва', interests: 'Музыка, Путешествия'},
+            {name: 'Дмитрий', age: 28, gender: 'male', city: 'Санкт-Петербург', interests: 'Спорт, Кино'},
+            {name: 'Мария', age: 23, gender: 'female', city: 'Киев', interests: 'Кулинария, Чтение'},
+            {name: 'Алексей', age: 30, gender: 'male', city: 'Минск', interests: 'Технологии, Музыка'},
+        ];
+
+        let currentUserIndex = 0;
+
+        // Функции навигации
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            currentPage = pageId;
+        }
+
+        function updateProfile() {
+            if (userData) {
+                document.getElementById('profileName').textContent = `${userData.name}, ${userData.age}`;
+                document.getElementById('profileInfo').textContent = `${userData.gender === 'male' ? 'Мужской' : 'Женский'} | ${userData.city || 'Город не указан'}`;
+            }
+        }
+
+        function showNextUser() {
+            const user = demoUsers[currentUserIndex % demoUsers.length];
+            document.getElementById('cardName').textContent = `${user.name}, ${user.age}`;
+            document.querySelector('.card-info h3').textContent = `${user.name}, ${user.age}`;
+            document.querySelector('.card-info p').textContent = `${user.city} | ${user.interests}`;
+            currentUserIndex++;
+        }
+
+        // Обработчики событий
+        document.getElementById('startBtn').addEventListener('click', function() {
+            showPage('register');
+        });
+
+        document.getElementById('aboutBtn').addEventListener('click', function() {
+            alert('Flirtya - это современное приложение для знакомств в Telegram. Находите совпадения, общайтесь и знакомьтесь с новыми людьми!');
+        });
+
+        document.getElementById('backToHome').addEventListener('click', function() {
+            showPage('home');
+        });
+
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const name = document.getElementById('nameInput').value;
+            const age = document.getElementById('ageInput').value;
+            const gender = document.getElementById('genderInput').value;
+
+            if (!name || !age || !gender) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+
+            if (age < 18) {
+                alert('Вы должны быть старше 18 лет');
+                return;
+            }
+
+            userData = {name, age, gender};
+            showPage('swipes');
+            showNextUser();
+            updateProfile();
+        });
+
+        document.getElementById('likeBtn').addEventListener('click', function() {
+            showNextUser();
+            if (Math.random() > 0.7) {
+                alert('Это совпадение! 🎉');
+            }
+        });
+
+        document.getElementById('dislikeBtn').addEventListener('click', function() {
+            showNextUser();
+        });
+
+        document.getElementById('backToSwipes').addEventListener('click', function() {
+            showPage('swipes');
+        });
+
+        document.getElementById('editProfile').addEventListener('click', function() {
+            showPage('register');
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            userData = null;
+            showPage('home');
+        });
+
+        // Навигация
+        document.querySelectorAll('[id^="navSwipes"]').forEach(nav => {
+            nav.addEventListener('click', () => showPage('swipes'));
+        });
+
+        document.querySelectorAll('[id^="navMatches"]').forEach(nav => {
+            nav.addEventListener('click', () => showPage('matches'));
+        });
+
+        document.querySelectorAll('[id^="navProfile"]').forEach(nav => {
+            nav.addEventListener('click', () => showPage('profile'));
+        });
+    </script>
+</body>
+</html>
