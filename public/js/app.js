@@ -640,3 +640,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Запускаем приложение
     app.init();
 });
+
+// Фиксируем кнопки принудительно
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+    
+    // Ждем немного и добавляем обработчики
+    setTimeout(function() {
+        const btnNext = document.querySelector('.btn-next');
+        const btnSkip = document.querySelector('.btn-skip');
+        
+        if (btnNext) {
+            btnNext.onclick = function() {
+                console.log('Next clicked');
+                if (window.app && window.app.handleNextOnboarding) {
+                    window.app.handleNextOnboarding();
+                }
+            };
+        }
+        
+        if (btnSkip) {
+            btnSkip.onclick = function() {
+                console.log('Skip clicked');
+                if (window.app && window.app.skipOnboarding) {
+                    window.app.skipOnboarding();
+                }
+            };
+        }
+    }, 1000);
+});
