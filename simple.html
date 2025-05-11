@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flirtya Simple</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body { padding: 20px; text-align: center; font-family: Arial; }
+        h1 { color: #8a2be2; }
+    </style>
+</head>
+<body>
+    <h1>Flirtya работает!</h1>
+    <p>Добро пожаловать в простую версию</p>
+    <script>
+        if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.MainButton.text = "Начать знакомства";
+            window.Telegram.WebApp.MainButton.show();
+        }
+    </script>
+</body>
+</html>
