@@ -411,6 +411,38 @@
     <div id="modal-container" class="hidden"></div>
 
     <!-- Скрипты -->
+    <script>
+    // Принудительно скрыть экран загрузки через 3 секунды
+    setTimeout(function() {
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.style.display = 'none';
+        }
+        const onboarding = document.getElementById('onboarding');
+        if (onboarding) {
+            onboarding.style.display = 'block';
+            onboarding.classList.remove('hidden');
+        }
+    }, 3000);
+
+    // Проверка и инициализация после загрузки DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        // Если приложение все еще на экране загрузки через 5 секунд, принудительно скрываем
+        setTimeout(function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen && loadingScreen.style.display !== 'none') {
+                loadingScreen.style.display = 'none';
+                
+                // Показываем онбординг
+                const onboarding = document.getElementById('onboarding');
+                if (onboarding) {
+                    onboarding.style.display = 'block';
+                    onboarding.classList.remove('hidden');
+                }
+            }
+        }, 5000);
+    });
+    </script>
     <script src="js/i18n.js"></script>
     <script src="js/payment.js"></script>
     <script src="js/app.js"></script>
