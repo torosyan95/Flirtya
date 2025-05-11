@@ -79,7 +79,9 @@ const app = {
     },
     
     // Настройка обработчиков событий
-    setupEventListeners: function() {
+setupEventListeners: function() {
+    // Добавляем небольшую задержку для загрузки элементов
+    setTimeout(() => {
         // Онбординг
         document.querySelector('.btn-next')?.addEventListener('click', this.handleNextOnboarding.bind(this));
         document.querySelector('.btn-skip')?.addEventListener('click', this.skipOnboarding.bind(this));
@@ -870,6 +872,7 @@ const app = {
         modal.querySelector('.btn-close').addEventListener('click', () => {
             document.body.removeChild(modal);
         });
+      }, 100); // Задержка 100мс  
     },
     
     // Загрузка чатов
