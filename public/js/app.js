@@ -1,3 +1,9 @@
+// Принудительно скрыть загрузочный экран через 3 секунды
+setTimeout(function() {
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('onboarding').style.display = 'block';
+    document.getElementById('onboarding').classList.remove('hidden');
+}, 3000);
 // Основной файл приложения
 
 const app = {
